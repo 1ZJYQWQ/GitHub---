@@ -5,60 +5,189 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GitHub 每日推荐</title>
 <style>
-:root { color-scheme: light; }
+:root {
+  color-scheme: light dark;
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --surface-2: #fbfaf8;
+  --ink: #1b2124;
+  --ink-2: #4e585e;
+  --ink-3: #8b949a;
+  --line: #e7e4de;
+  --line-strong: #d6d1c8;
+  --accent: #1f4e5f;
+  --accent-soft: #e9f1f3;
+  --warm: #a45f36;
+  --warm-soft: #f8ede4;
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(24, 30, 34, .03), 0 8px 24px rgba(24, 30, 34, .045);
+  --shadow-hover: 0 2px 4px rgba(24, 30, 34, .04), 0 14px 32px rgba(24, 30, 34, .09);
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121619;
+    --surface: #1a1f23;
+    --surface-2: #20262b;
+    --ink: #ececeb;
+    --ink-2: #aeb7bd;
+    --ink-3: #7c868c;
+    --line: #2b3237;
+    --line-strong: #3a4349;
+    --accent: #93c7d9;
+    --accent-soft: #1d313a;
+    --warm: #e0a97e;
+    --warm-soft: #35281f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .18), 0 8px 24px rgba(0, 0, 0, .2);
+    --shadow-hover: 0 2px 4px rgba(0, 0, 0, .2), 0 14px 32px rgba(0, 0, 0, .3);
+  }
+}
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  background: #fff;
-  color: #24292f;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
   font-size: 15px;
-  line-height: 1.65;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
-main { max-width: 860px; margin: 0 auto; padding: 48px 20px 96px; }
-h1 { font-size: 24px; font-weight: 600; margin: 0 0 12px; letter-spacing: .2px; }
-h2 { font-size: 17px; font-weight: 600; margin: 52px 0 6px; padding-bottom: 8px; border-bottom: 1px solid #eaecef; }
-h3 { font-size: 14px; font-weight: 600; margin: 24px 0 4px; }
-p { margin: 6px 0; }
-.lede { color: #57606a; font-size: 14px; margin-bottom: 16px; }
-.sub { color: #6e7781; font-size: 13px; margin: 0 0 8px; }
-nav { font-size: 13px; color: #8c959f; padding-bottom: 8px; border-bottom: 1px solid #eaecef; }
-nav a { margin-right: 14px; }
-a { color: #0969da; text-decoration: none; }
-a:hover { text-decoration: underline; }
-.mono { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; font-size: 13.5px; }
-ol { margin: 0; padding-left: 26px; }
-ol li { padding: 14px 0 14px 2px; border-bottom: 1px solid #f0f1f3; }
-ol li:last-child { border-bottom: 0; }
-.tag { margin: 3px 0 5px; font-size: 14px; }
-.meta { color: #6e7781; font-size: 12px; margin: 0; }
-.badge { border: 1px solid #d0d7de; border-radius: 3px; padding: 1px 5px; font-size: 11px; color: #57606a; white-space: nowrap; }
-.badge.auto { border-color: #d4a72c; color: #7d5c00; }
-details { margin-top: 8px; font-size: 13px; color: #57606a; }
-summary { cursor: pointer; font-size: 12px; color: #6e7781; }
-details p { margin: 6px 0 0; }
-.group p { margin: 4px 0 0; line-height: 1.9; }
-.group a { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 13px; margin-right: 12px; white-space: nowrap; }
-#archive details { border-bottom: 1px solid #f0f1f3; padding: 10px 0; }
-#archive ol { margin-top: 8px; }
-#archive li { padding: 6px 0; border: 0; font-size: 13px; }
-#rules ul { padding-left: 20px; margin: 8px 0 0; }
-#rules li { padding: 3px 0; font-size: 14px; }
-footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid #eaecef; color: #8c959f; font-size: 12px; }
-#notice { color: #a40e26; font-size: 13px; }
-@media (max-width: 600px) {
-  main { padding: 28px 16px 64px; }
-  h1 { font-size: 21px; }
-  .mono { font-size: 12.5px; }
-  .group a { margin-right: 8px; }
+::selection { background: var(--accent-soft); color: var(--accent); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+main { max-width: 1000px; margin: 0 auto; padding: 0 28px 100px; }
+
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 0; border-bottom: 1px solid var(--line);
+  font-family: var(--mono); font-size: 12px; color: var(--ink-3);
+}
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-family: var(--sans); font-weight: 600; font-size: 13px; }
+.brand-mark { width: 9px; height: 9px; background: var(--accent); border-radius: 2px; transform: rotate(45deg); }
+.topbar .stamp { font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+
+header { padding: 72px 0 40px; }
+h1 { margin: 0 0 14px; font-size: clamp(32px, 5vw, 44px); font-weight: 600; letter-spacing: -.025em; line-height: 1.2; }
+.lede { margin: 0; max-width: 620px; font-size: 16px; color: var(--ink-2); }
+nav { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 44px; border-bottom: 1px solid var(--line); }
+nav a {
+  position: relative; display: block; padding: 0 0 14px;
+  font-size: 13px; font-weight: 500; color: var(--ink-2); text-decoration: none;
+}
+nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .18s ease; }
+nav a:hover { color: var(--accent); text-decoration: none; }
+nav a:hover::after { transform: scaleX(1); }
+
+.stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+}
+.stat { padding: 22px 24px; border-left: 1px solid var(--line); }
+.stat:first-child { border-left: 0; }
+.stat-num { display: block; font-family: var(--mono); font-size: 26px; font-weight: 500; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1.3; color: var(--ink); }
+.stat-label { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); }
+
+section { margin-top: 76px; scroll-margin-top: 24px; }
+.sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 22px; }
+.sec-num { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--accent); }
+h2 { margin: 0; font-size: 19px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
+.sec-rule { flex: 1; height: 1px; background: var(--line); }
+.sec-note { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
+.sub { margin: -10px 0 22px; color: var(--ink-3); font-size: 13px; }
+
+.picks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.pick {
+  display: grid; grid-template-columns: 52px 1fr; gap: 6px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 20px 22px; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.pick:hover { border-color: var(--line-strong); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.pick-num { font-family: var(--mono); font-size: 17px; color: var(--ink-3); font-variant-numeric: tabular-nums; padding-top: 1px; }
+.pick-name { font-family: var(--mono); font-size: 14.5px; font-weight: 500; letter-spacing: -.01em; word-break: break-all; }
+.pick-name .arrow { display: inline-block; margin-left: 6px; font-size: 12px; color: var(--ink-3); transition: transform .18s ease, color .18s ease; }
+.pick-name:hover .arrow { transform: translate(2px, -2px); color: var(--accent); }
+.pick-tag { margin: 6px 0 12px; font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+.chips { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.chip {
+  font-size: 11.5px; font-family: var(--mono); color: var(--ink-2);
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 5px; padding: 2px 7px; font-variant-numeric: tabular-nums;
+}
+.badge { font-size: 11px; font-family: var(--sans); border-radius: 5px; padding: 2px 8px; border: 1px solid transparent; white-space: nowrap; }
+.badge.curated { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-soft); }
+.badge.auto { color: var(--warm); background: var(--warm-soft); border-color: var(--warm-soft); }
+details { margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+summary { cursor: pointer; font-size: 12px; color: var(--ink-3); list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: ""; width: 5px; height: 5px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); transition: transform .18s ease; }
+details[open] summary::before { transform: rotate(45deg); }
+details p { margin: 8px 0 0; padding-left: 14px; border-left: 2px solid var(--line); }
+
+.groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.group {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow);
+}
+.group h3 { margin: 0 0 12px; font-size: 14px; font-weight: 600; }
+.group .chips { gap: 6px; }
+.group a.chip { color: var(--accent); border-color: var(--line); background: var(--surface-2); transition: background .16s ease, border-color .16s ease; }
+.group a.chip:hover { background: var(--accent-soft); border-color: var(--accent-soft); text-decoration: none; }
+
+.archive { border-top: 1px solid var(--line); }
+.archive details { margin: 0; border-bottom: 1px solid var(--line); padding: 16px 4px; transition: background .16s ease; }
+.archive details:hover { background: var(--surface); }
+.archive summary { display: flex; font-size: 13.5px; color: var(--ink); gap: 10px; }
+.archive .arc-date { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.archive .arc-count { color: var(--ink-3); font-size: 12px; }
+.archive .arc-badge { margin-left: auto; }
+.archive ol { list-style: none; margin: 12px 0 4px; padding: 0; display: grid; gap: 8px; }
+.archive li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; padding: 8px 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; font-size: 13px; }
+.archive li .a-name { font-family: var(--mono); font-size: 12.5px; }
+.archive li .a-tag { color: var(--ink-2); flex: 1 1 300px; }
+.archive li .a-meta { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+
+#rules ol { list-style: none; margin: 0; padding: 0; }
+#rules li { display: flex; gap: 16px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
+#rules li:first-child { border-top: 1px solid var(--line); }
+#rules .r-num { font-family: var(--mono); font-size: 11px; color: var(--accent); min-width: 22px; }
+
+footer { margin-top: 80px; padding: 22px 0 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; font-size: 12px; color: var(--ink-3); }
+footer a { font-size: 12px; }
+#notice { margin: 12px 0 0; font-size: 13px; color: var(--warm); }
+
+@media (max-width: 760px) {
+  main { padding: 0 18px 72px; }
+  header { padding: 48px 0 32px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+  .stat:nth-child(4) { border-top: 1px solid var(--line); }
+  .groups { grid-template-columns: 1fr; }
+  section { margin-top: 56px; }
+  .pick { grid-template-columns: 34px 1fr; padding: 16px; gap: 2px; }
+  .pick-num { font-size: 14px; }
+  .sec-note { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 </style>
 </head>
 <body>
-<main>
+<main id="top">
+  <div class="topbar">
+    <span class="brand"><span class="brand-mark"></span>GitHub 每日推荐</span>
+    <span class="stamp" id="stamp"></span>
+  </div>
+
   <header>
     <h1>GitHub 每日推荐</h1>
-    <p class="lede">每天抓一批 GitHub 新项目，挑 10 条记下来。<br><span id="summary"></span></p>
+    <p class="lede">每天抓一批 GitHub 新项目，挑 10 条记下来。</p>
     <nav>
       <a href="#latest">最新一期</a>
       <a href="#groups">按主题分组</a>
@@ -67,29 +196,38 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid #eaecef; col
     </nav>
   </header>
 
+  <div class="stats">
+    <div class="stat"><strong class="stat-num" id="stat-issues">—</strong><span class="stat-label">期日报</span></div>
+    <div class="stat"><strong class="stat-num" id="stat-picks">—</strong><span class="stat-label">条精选</span></div>
+    <div class="stat"><strong class="stat-num" id="stat-latest">—</strong><span class="stat-label">条本期</span></div>
+    <div class="stat"><strong class="stat-num" id="stat-updated">—</strong><span class="stat-label">数据截至</span></div>
+  </div>
+
   <section id="latest">
-    <h2 id="latest-title">最新一期</h2>
+    <div class="sec-head"><span class="sec-num">01</span><h2 id="latest-title">最新一期</h2><span class="sec-rule"></span><span class="sec-note" id="latest-note"></span></div>
     <p class="sub" id="latest-sub"></p>
-    <ol id="latest-list"></ol>
+    <ol class="picks" id="latest-list"></ol>
   </section>
 
   <section id="groups">
-    <h2>按主题分组</h2>
-    <p class="sub">按项目主题归组，同一项目可能出现在多个组里。</p>
-    <div id="group-list"></div>
+    <div class="sec-head"><span class="sec-num">02</span><h2>按主题分组</h2><span class="sec-rule"></span><span class="sec-note">同一项目可能出现在多个组里</span></div>
+    <div class="groups" id="group-list"></div>
   </section>
 
   <section id="archive">
-    <h2>往期归档</h2>
-    <div id="archive-list"></div>
+    <div class="sec-head"><span class="sec-num">03</span><h2>往期归档</h2><span class="sec-rule"></span></div>
+    <div class="archive" id="archive-list"></div>
   </section>
 
   <section id="rules">
-    <h2>筛选说明</h2>
-    <ul id="rules-list"></ul>
+    <div class="sec-head"><span class="sec-num">04</span><h2>筛选说明</h2><span class="sec-rule"></span></div>
+    <ol id="rules-list"></ol>
   </section>
 
-  <footer id="foot"></footer>
+  <footer>
+    <span id="foot"></span>
+    <a href="#top">回到顶部</a>
+  </footer>
   <p id="notice"></p>
 </main>
 
@@ -102,63 +240,79 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid #eaecef; col
     });
   }
   function short(name) { var p = String(name).split('/'); return p[p.length - 1]; }
-  function metaLine(it) {
-    var bits = [];
-    if (it.language) bits.push(esc(it.language));
-    if (it.stars != null) bits.push(esc(it.stars) + ' 星');
-    if (it.velocity != null) bits.push('估算 ' + esc(it.velocity) + '/天');
-    if (it.license && it.license !== '-' && it.license !== '—') bits.push(esc(it.license));
-    return bits.join(' · ');
+  function chips(it) {
+    var out = [];
+    if (it.language && it.language !== '-' && it.language !== '—') out.push('<span class="chip">' + esc(it.language) + '</span>');
+    if (it.stars != null) out.push('<span class="chip">' + esc(it.stars) + ' 星</span>');
+    if (it.velocity != null) out.push('<span class="chip">估算 ' + esc(it.velocity) + '/天</span>');
+    if (it.license && it.license !== '-' && it.license !== '—') out.push('<span class="chip">' + esc(it.license) + '</span>');
+    return out.join('');
   }
-  function itemHtml(it, withReason) {
+  function badge(it) {
     var auto = it.source === 'description';
-    var h = '<li>';
-    h += '<a class="mono" href="' + esc(it.url) + '" target="_blank" rel="noopener">' + esc(it.name) + '</a>';
-    h += '<p class="tag">' + esc(it.tagline) + '</p>';
-    h += '<p class="meta">' + metaLine(it) + ' <span class="badge' + (auto ? ' auto' : '') + '">' + (auto ? '简介原文' : '人工精选') + '</span></p>';
+    return '<span class="badge ' + (auto ? 'auto' : 'curated') + '">' + (auto ? '简介原文' : '人工精选') + '</span>';
+  }
+  function pickHtml(it, i, withReason) {
+    var h = '<li class="pick"><span class="pick-num">' + String(i + 1).padStart(2, '0') + '</span><div class="pick-body">';
+    h += '<a class="pick-name" href="' + esc(it.url) + '" target="_blank" rel="noopener">' + esc(it.name) + '<span class="arrow">↗</span></a>';
+    h += '<p class="pick-tag">' + esc(it.tagline) + '</p>';
+    h += '<div class="chips">' + chips(it) + badge(it) + '</div>';
     if (withReason && (it.why || it.caveat)) {
       h += '<details><summary>推荐理由 / 注意</summary>';
       if (it.why) h += '<p>' + esc(it.why) + '</p>';
       if (it.caveat) h += '<p>注意：' + esc(it.caveat) + '</p>';
       h += '</details>';
     }
-    return h + '</li>';
+    return h + '</div></li>';
   }
   function render(data) {
     var issues = data.issues || [];
     var total = issues.reduce(function (n, i) { return n + (i.picks || []).length; }, 0);
-    document.getElementById('summary').textContent =
-      '已整理 ' + issues.length + ' 期，共 ' + total + ' 条。数据截至 ' + (data.updated || '—') + '。';
+    var latest = data.latest || issues[issues.length - 1];
 
-    var latest = data.latest || issues[0];
+    document.getElementById('stamp').textContent = '数据截至 ' + (data.updated || '—');
+    document.getElementById('stat-issues').textContent = issues.length;
+    document.getElementById('stat-picks').textContent = total;
+    document.getElementById('stat-latest').textContent = latest ? (latest.picks || []).length : 0;
+    document.getElementById('stat-updated').textContent = data.updated || '—';
+
     var list = document.getElementById('latest-list');
     if (latest) {
       var autoIssue = latest.mode === 'auto';
       document.getElementById('latest-title').textContent = '最新一期 · ' + latest.date;
+      document.getElementById('latest-note').textContent = autoIssue ? '自动抓取' : '人工精选';
       document.getElementById('latest-sub').textContent = autoIssue
         ? '自动抓取，条目说明为项目简介原文；按日增估算排序。'
         : '10 条，按当日增速排，不按总星数。';
-      list.innerHTML = (latest.picks || []).map(function (it) { return itemHtml(it, true); }).join('');
+      list.innerHTML = (latest.picks || []).map(function (it, i) { return pickHtml(it, i, true); }).join('');
     } else {
-      list.innerHTML = '<li>暂无数据</li>';
+      list.innerHTML = '<li class="pick"><div class="pick-body"><p class="pick-tag">暂无数据</p></div></li>';
     }
 
     document.getElementById('group-list').innerHTML = (data.groups || []).map(function (g) {
-      return '<div class="group"><h3>' + esc(g.name) + '</h3><p>' +
+      return '<div class="group"><h3>' + esc(g.name) + '</h3><div class="chips">' +
         (g.items || []).map(function (it) {
-          return '<a href="' + esc(it.url) + '" title="' + esc(it.tagline) + '" target="_blank" rel="noopener">' + esc(short(it.name)) + '</a>';
-        }).join('') + '</p></div>';
+          return '<a class="chip" href="' + esc(it.url) + '" title="' + esc(it.tagline) + '" target="_blank" rel="noopener">' + esc(short(it.name)) + '</a>';
+        }).join('') + '</div></div>';
     }).join('');
 
-    var older = issues.filter(function (i) { return !latest || i.date !== latest.date; });
+    var older = issues.filter(function (i) { return !latest || i.date !== latest.date; })
+                      .slice().sort(function (a, b) { return b.date.localeCompare(a.date); });
     document.getElementById('archive-list').innerHTML = older.map(function (i) {
-      return '<details><summary>' + esc(i.date) + ' · ' + (i.picks || []).length + ' 条 · ' +
-        (i.mode === 'auto' ? '自动抓取' : '人工精选') + (i.theme ? ' · ' + esc(i.theme) : '') + '</summary>' +
-        '<ol>' + (i.picks || []).map(function (it) { return itemHtml(it, false); }).join('') + '</ol></details>';
+      return '<details><summary><span class="arc-date">' + esc(i.date) + '</span>' +
+        '<span class="arc-count">' + (i.picks || []).length + ' 条' + (i.theme ? ' · ' + esc(i.theme) : '') + '</span>' +
+        '<span class="badge ' + (i.mode === 'auto' ? 'auto' : 'curated') + ' arc-badge">' + (i.mode === 'auto' ? '自动抓取' : '人工精选') + '</span></summary>' +
+        '<ol>' + (i.picks || []).map(function (it) {
+          return '<li><a class="a-name" href="' + esc(it.url) + '" target="_blank" rel="noopener">' + esc(it.name) + '</a>' +
+            '<span class="a-tag">' + esc(it.tagline) + '</span>' +
+            '<span class="a-meta">' + (it.language ? esc(it.language) + ' · ' : '') + (it.velocity != null ? '估算 ' + esc(it.velocity) + '/天' : '') + '</span></li>';
+        }).join('') + '</ol></details>';
     }).join('') || '<p class="sub">暂无往期</p>';
 
     document.getElementById('rules-list').innerHTML =
-      (data.rules || []).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('');
+      (data.rules || []).map(function (r, i) {
+        return '<li><span class="r-num">' + String(i + 1).padStart(2, '0') + '</span><span>' + esc(r) + '</span></li>';
+      }).join('');
 
     document.getElementById('foot').textContent =
       '数据来自 GitHub Search API 与各项目 README。日增星数是估算，只看量级。本站由 GitHub Actions 部署。';
